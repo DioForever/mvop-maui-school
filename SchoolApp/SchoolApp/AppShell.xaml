@@ -13,14 +13,15 @@
 
         <ShellContent
             Title="Teachers"
-            ContentTemplate="{DataTemplate local:TeachersPage}"/>
+            ContentTemplate="{DataTemplate local:AllTeachersPage}"/>
     
         <ShellContent
             Title="Handymans"
-            ContentTemplate="{DataTemplate local:HandymansPage}"/>
+            ContentTemplate="{DataTemplate local:AllHandymanPage}"/>
 
         <ShellContent
             Title="Support"
-            ContentTemplate="{DataTemplate local:SupportPage}"/>
+            ContentTemplate="{DataTemplate local:AllSupportPage}"/>
+
     </TabBar>
 </Shell>

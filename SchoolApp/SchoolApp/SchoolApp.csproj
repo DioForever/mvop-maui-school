@@ -53,10 +53,46 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Handyman\HandymansPage.xaml">
+	  <Compile Update="AllHandymanPage.xaml.cs">
+	    <DependentUpon>AllHandymanPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="AllSupportPage.xaml.cs">
+	    <DependentUpon>AllSupportPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="AllTeachersPage.xaml.cs">
+	    <DependentUpon>AllTeachersPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="HandymanPage.xaml.cs">
+	    <DependentUpon>HandymanPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="SupportPage.xaml.cs">
+	    <DependentUpon>SupportPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="TeacherPage.xaml.cs">
+	    <DependentUpon>TeacherPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="AllHandymanPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AllSupportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AllTeachersPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="HandymanPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="SupportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="SupportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="TeacherPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="TeachersPage.xaml">
