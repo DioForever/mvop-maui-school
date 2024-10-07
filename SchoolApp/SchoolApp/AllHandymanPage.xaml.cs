@@ -1,10 +1,17 @@
+using SchoolApp.Models;
+using System.Windows.Input;
+
 namespace SchoolApp;
 
 public partial class AllHandymanPage : ContentPage
 {
-	public AllHandymanPage()
-	{
-		InitializeComponent();
+    public ICommand DeleteHandymanCommand { get; }
+
+    public AllHandymanPage()
+    {
+        InitializeComponent();
+
+        DeleteHandymanCommand = new Command<Handyman>(DeleteHandyman);
 
         BindingContext = new Models.AllHandyman();
     }
@@ -16,21 +23,19 @@ public partial class AllHandymanPage : ContentPage
 
     private async void Add_Clicked(object sender, EventArgs e)
     {
-        //await Shell.Current.GoToAsync(nameof(TeacherPage));
+        await Shell.Current.GoToAsync(nameof(HandymanPage));
     }
 
     private async void handymanCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.Count != 0)
-        {
-            // Get the note model
-            var handyman = (Models.Handyman)e.CurrentSelection[0];
+        // If we wish to allow editing of the handyman, which we don't
+    }
 
-            // Should navigate to "NotePage?ItemId=path\on\device\XYZ.notes.txt"
-            //await Shell.Current.GoToAsync($"{nameof(NotePage)}?{nameof(NotePage.ItemId)}={note.Filename}");
+    private async void DeleteHandyman(Handyman handyman)
+    {
+        string path = Path.Combine(FileSystem.AppDataDirectory, handyman.Filename);
+        File.Delete(path);
 
-            // Unselect the UI
-            handymanCollection.SelectedItem = null;
-        }
+        ((Models.AllHandyman)BindingContext).LoadHandyman();
     }
 }

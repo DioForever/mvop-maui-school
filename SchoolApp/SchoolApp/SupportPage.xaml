@@ -4,9 +4,22 @@
              x:Class="SchoolApp.SupportPage"
              Title="Support">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Editor x:Name="FirstNameEditor"
+                Placeholder="Enter first name"
+                Text="{Binding FirstNameText}"
+                HeightRequest="100" />
+        <Editor x:Name="LastNameEditor"
+                Placeholder="Enter last name"
+                Text="{Binding LastNameText}"
+                HeightRequest="100" />
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+            <Button Text="Save"
+                    Clicked="SaveButton_Clicked" />
+
+            <Button Grid.Column="1"
+                    Text="Delete"
+                    Clicked="DeleteButton_Clicked" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

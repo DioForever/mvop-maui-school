@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models
 {
-    internal class Handyman
+    internal class Handyman : Person
     {
-        public string Filename => $"{FirstName}-{LastName}.hand";
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public static new string Ending = ".handyman";
+        public static new string SearchPattern = $"*{Ending}";
+        public new string Filename => $"{UniqueId}{Ending}";
     }
 }

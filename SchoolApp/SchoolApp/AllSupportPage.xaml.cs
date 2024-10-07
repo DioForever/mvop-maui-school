@@ -1,10 +1,17 @@
+using SchoolApp.Models;
+using System.Windows.Input;
+
 namespace SchoolApp;
 
 public partial class AllSupportPage : ContentPage
 {
+    public ICommand DeleteSupportCommand { get; }
+
     public AllSupportPage()
     {
         InitializeComponent();
+
+        DeleteSupportCommand = new Command<Support>(DeleteSupport);
 
         BindingContext = new Models.AllSupport();
     }
@@ -16,21 +23,27 @@ public partial class AllSupportPage : ContentPage
 
     private async void Add_Clicked(object sender, EventArgs e)
     {
-        //await Shell.Current.GoToAsync(nameof(TeacherPage));
+        await Shell.Current.GoToAsync(nameof(SupportPage));
     }
 
     private async void supportCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.Count != 0)
-        {
-            // Get the note model
-            var support = (Models.Support)e.CurrentSelection[0];
+        // If we wish to allow editing of the support, which we don't
+        //if (e.CurrentSelection.Count != 0)
+        //{
+        //    Support support = (Support)e.CurrentSelection[0];
 
-            // Should navigate to "NotePage?ItemId=path\on\device\XYZ.notes.txt"
-            //await Shell.Current.GoToAsync($"{nameof(NotePage)}?{nameof(NotePage.ItemId)}={note.Filename}");
+        //    await Shell.Current.GoToAsync($"{nameof(SupportPage)}?{nameof(SupportPage.Filename)}={support.Filename}");
 
-            // Unselect the UI
-            supportCollection.SelectedItem = null;
-        }
+        //    supportCollection.SelectedItem = null;
+        //}
+    }
+
+    private async void DeleteSupport(Support support)
+    {
+        string path = Path.Combine(FileSystem.AppDataDirectory, support.Filename);
+        File.Delete(path);
+
+        ((Models.AllSupport)BindingContext).LoadSupport();
     }
 }

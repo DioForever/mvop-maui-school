@@ -18,27 +18,25 @@ namespace SchoolApp.Models
         {
             Support.Clear();
 
-            // Get the folder where the notes are stored.
             string appDataPath = FileSystem.AppDataDirectory;
 
-            // Use Linq extensions to load the *.notes.txt files.
             IEnumerable<Support> supports = Directory
 
                                         // Select the file names from the directory
-                                        .EnumerateFiles(appDataPath, "*.supp")
+                                        .EnumerateFiles(appDataPath, Models.Support.SearchPattern)
 
                                         // Each file name is used to create a new Note
-                                        .Where(filename => File.ReadAllLines(filename).Count() == 2)
-                                        .Select(filename => new Support()
+                                        .Where(filepath => File.ReadAllLines(filepath).Count() == 2)
+                                        .Select(filepath => new Support()
                                         {
-                                            FirstName = File.ReadAllText(filename).Split("")[0],
-                                            LastName = File.ReadAllText(filename).Split("")[1]
+                                            FirstName = File.ReadAllLines(filepath)[0],
+                                            LastName = File.ReadAllLines(filepath)[1],
+                                            UniqueId = Path.GetFileNameWithoutExtension(filepath)
                                         })
 
                                         // With the final collection of notes, order them by date
-                                        .OrderBy(support => support.FirstName);
+                                        .OrderBy(teacher => teacher.FirstName);
 
-            // Add each note into the ObservableCollection
             foreach (Support support in supports)
                 Support.Add(support);
         }

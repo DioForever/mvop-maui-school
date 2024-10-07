@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models
 {
-    internal class Teacher
+    internal class Teacher : Person
     {
-        public string Filename => $"{FirstName}-{LastName}.teac";
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public static new string Ending = ".teacher";
+        public static new string SearchPattern = $"*{Ending}";
+        public new string Filename => $"{UniqueId}{Ending}";
     }
+
 }

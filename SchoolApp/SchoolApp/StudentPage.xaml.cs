@@ -1,36 +1,36 @@
-using Microsoft.Maui.Storage;
 using SchoolApp.Models;
+
 namespace SchoolApp;
 
 [QueryProperty(nameof(Filename), nameof(Filename))]
-public partial class TeacherPage : ContentPage
+public partial class StudentPage : ContentPage
 {
     private string appDataPath = FileSystem.AppDataDirectory;
 
-    public TeacherPage()
-	{
-		InitializeComponent();
-        string randomFileName = Path.GetRandomFileName() + Teacher.Ending;
+    public StudentPage()
+    {
+        InitializeComponent();
+        string randomFileName = Path.GetRandomFileName() + Models.Student.Ending;
 
-        LoadTeacher(randomFileName);
+        LoadStudent(randomFileName);
     }
 
     public string Filename
     {
-        set { LoadTeacher(value); }
+        set { LoadStudent(value); }
     }
 
-    public void LoadTeacher(string filepath)
+    public void LoadStudent(string filepath)
     {
-        Teacher teacherModel = new Teacher();
-        string pathToTeacher = Path.Combine(appDataPath, filepath);
+        Student teacherModel = new Student();
+        string pathToSupport = Path.Combine(appDataPath, filepath);
 
-        if (File.Exists(pathToTeacher))
+        if (File.Exists(pathToSupport))
         {
-            string[] text = File.ReadAllLines(pathToTeacher);
+            string[] text = File.ReadAllLines(pathToSupport);
 
             // In case there is more or less values we just reset it as it was corrupted
-            if(text.Count() != 2)
+            if (text.Count() != 2)
             {
                 teacherModel.FirstName = "";
                 teacherModel.LastName = "";
@@ -51,9 +51,9 @@ public partial class TeacherPage : ContentPage
         string firstName = FirstNameEditor.Text;
         string lastName = LastNameEditor.Text;
 
-        Teacher teacher = (Teacher)BindingContext;
-        teacher.FirstName = firstName;
-        teacher.LastName = lastName;
+        Student support = (Student)BindingContext;
+        support.FirstName = firstName;
+        support.LastName = lastName;
 
         string fileText = firstName + "\n " + lastName;
 
@@ -63,7 +63,7 @@ public partial class TeacherPage : ContentPage
             return;
         }
 
-        string path = Path.Combine(appDataPath, teacher.Filename);
+        string path = Path.Combine(appDataPath, support.Filename);
 
         File.WriteAllText(path, fileText);
 
@@ -75,10 +75,10 @@ public partial class TeacherPage : ContentPage
 
     private async void DeleteButton_Clicked(object sender, EventArgs e)
     {
-        if (BindingContext is Models.Teacher teacher)
+        if (BindingContext is Models.Student student)
         {
-            if (File.Exists(teacher.Filename))
-                File.Delete(teacher.Filename);
+            if (File.Exists(student.Filename))
+                File.Delete(student.Filename);
         }
 
         await Shell.Current.GoToAsync("..");

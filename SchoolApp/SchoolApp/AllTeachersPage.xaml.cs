@@ -1,10 +1,17 @@
+using SchoolApp.Models;
+using System.Windows.Input;
+
 namespace SchoolApp;
 
 public partial class AllTeachersPage : ContentPage
 {
-	public AllTeachersPage()
+    public ICommand DeleteTeacherCommand { get; }
+
+    public AllTeachersPage()
 	{
 		InitializeComponent();
+
+        DeleteTeacherCommand = new Command<Teacher>(DeleteTeacher);
 
         BindingContext = new Models.AllTeacher();
     }
@@ -21,13 +28,22 @@ public partial class AllTeachersPage : ContentPage
 
     private async void teachersCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.Count != 0)
-        {
-            var teacher = (Models.Teacher)e.CurrentSelection[0];
+        // If we wish to allow editing of the teacher, which we don't
+        //if (e.CurrentSelection.Count != 0)
+        //{
+        //    Teacher teacher = (Teacher)e.CurrentSelection[0];
 
-            await Shell.Current.GoToAsync($"{nameof(TeacherPage)}?{nameof(TeacherPage.FirstLastName)}={teacher.FirstName + teacher.LastName}");
+        //    await Shell.Current.GoToAsync($"{nameof(TeacherPage)}?{nameof(TeacherPage.Filename)}={teacher.Filename}");
 
-            teachersCollection.SelectedItem = null;
-        }
+        //    teachersCollection.SelectedItem = null;
+        //}
+    }
+
+    private async void DeleteTeacher(Teacher teacher)
+    {
+        string path = Path.Combine(FileSystem.AppDataDirectory, teacher.Filename);
+        File.Delete(path);
+
+        ((Models.AllTeacher)BindingContext).LoadTeachers();
     }
 }

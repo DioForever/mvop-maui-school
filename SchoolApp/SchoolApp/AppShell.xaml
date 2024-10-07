@@ -23,5 +23,9 @@
             Title="Support"
             ContentTemplate="{DataTemplate local:AllSupportPage}"/>
 
+        <ShellContent
+            Title="Students"
+            ContentTemplate="{DataTemplate local:AllStudentsPage}"/>
+
     </TabBar>
 </Shell>

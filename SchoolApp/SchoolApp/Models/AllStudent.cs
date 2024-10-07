@@ -7,27 +7,27 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models
 {
-    internal class AllHandyman
+    internal class AllStudent
     {
-        public ObservableCollection<Handyman> Handyman { get; set; } = new ObservableCollection<Handyman>();
+        public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
 
-        public AllHandyman() =>
-            LoadHandyman();
+        public AllStudent() =>
+            LoadStudents();
 
-        public void LoadHandyman()
+        public void LoadStudents()
         {
-            Handyman.Clear();
+            Students.Clear();
 
             string appDataPath = FileSystem.AppDataDirectory;
 
-            IEnumerable<Handyman> handymanEnumerable = Directory
+            IEnumerable<Student> students = Directory
 
                                         // Select the file names from the directory
-                                        .EnumerateFiles(appDataPath, Models.Handyman.SearchPattern)
-                                        .Where(filepath => File.ReadAllLines(filepath).Count() == 2)
+                                        .EnumerateFiles(appDataPath, Student.SearchPattern)
 
                                         // Each file name is used to create a new Note
-                                        .Select(filepath => new Handyman()
+                                        .Where(filepath => File.ReadAllLines(filepath).Count() == 2)
+                                        .Select(filepath => new Student()
                                         {
                                             FirstName = File.ReadAllLines(filepath)[0],
                                             LastName = File.ReadAllLines(filepath)[1],
@@ -35,10 +35,10 @@ namespace SchoolApp.Models
                                         })
 
                                         // With the final collection of notes, order them by date
-                                        .OrderBy(handyman => handyman.FirstName);
+                                        .OrderBy(teacher => teacher.FirstName);
 
-            foreach (Handyman handyman in handymanEnumerable)
-                Handyman.Add(handyman);
+            foreach (Student student in students)
+                Students.Add(student);
         }
     }
 }
