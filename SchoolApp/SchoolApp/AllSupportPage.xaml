@@ -4,12 +4,10 @@
              xmlns:local="clr-namespace:SchoolApp"
              x:Class="SchoolApp.AllSupportPage"
              Title="All Support">
-    <!-- Add an item to the toolbar -->
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Clicked="Add_Clicked" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
     </ContentPage.ToolbarItems>
 
-    <!-- Display notes in a list -->
     <CollectionView x:Name="supportCollection"
                         ItemsSource="{Binding Support}"
                         Margin="20"
